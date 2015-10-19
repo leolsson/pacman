@@ -6,7 +6,7 @@ public class Main {
 	static PacmanWindow window = new PacmanWindow();
 	
 	public static void main(String[] args) {
-		BoardView boardView = new BoardView();
+		PacmanBoard boardView = new PacmanBoard();
 		window.add(boardView);
 	}
 
