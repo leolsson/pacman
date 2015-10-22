@@ -16,13 +16,7 @@ public class PacmanBoard extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 
-	private final int TICK_DELAY = 100;
-	private final int PACMAN_START_X_POS = 200;
-	private final int PACMAN_START_Y_POS = 200;
-	
-	private Timer tickTimer;
-	private Pacman pacman;
-
+	Pacman pacman;
 
 	public PacmanBoard() {
 		setSize(getMaximumSize());
@@ -30,12 +24,9 @@ public class PacmanBoard extends JPanel implements ActionListener {
 //		setBackground(Color.BLACK);
 //		setDoubleBuffered(true);
 
-		pacman = new Pacman(PACMAN_START_X_POS, PACMAN_START_Y_POS);
+		pacman = new Pacman(PacmanConstants.PACMAN_START_X_POS, PacmanConstants.PACMAN_START_Y_POS);
 
 		addKeyListener(new TAdapter());
-
-		tickTimer = new Timer(TICK_DELAY, this);
-		tickTimer.start();
 	}
 	
 //	public void paintComponent(Graphics g) {
@@ -58,8 +49,9 @@ public class PacmanBoard extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("Tick");
 		pacman.move();	
-		repaint(); 
+		repaint();
 	}
 	
 //	private class TAdapter extends KeyAdapter {
