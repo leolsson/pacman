@@ -35,6 +35,7 @@ public class PacmanBoard extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 		pacmanModel.getPacman().drawPacman(g);
+		pacmanModel.getGhost().draw(g);
 	}
 
 
