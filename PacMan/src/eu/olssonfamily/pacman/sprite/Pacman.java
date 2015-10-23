@@ -21,13 +21,17 @@ public class Pacman extends Sprite {
 		y = y + dy * PACMAN_SPEED;
 	}
 	
+	public void setDirection(int direction) {
+		
+	}
+	
 	public void drawPacman(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(getImage(), getX(), getY(), null);
 	}
 
 
-	public void keyPressed(KeyEvent e) {
+	public void changeDirection(KeyEvent e) {
 
 		System.out.println("Pacman key event recieved");
 		

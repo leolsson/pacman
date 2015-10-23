@@ -2,13 +2,12 @@ package eu.olssonfamily.pacman;
 
 
 public class Main {
-	static PacmanWindow window = new PacmanWindow();
 	
 	public static void main(String[] args) {
-		Tick gameTick = new Tick(PacmanConstants.DELAY);
-		PacmanBoard boardView = new PacmanBoard();
-		gameTick.addActionListener(boardView);
-		window.add(boardView);
+		PacmanModel model = new PacmanModel();
+		PacmanController controller = new PacmanController(model);
+		PacmanWindow window = new PacmanWindow(controller, model);
+		window.setVisible(true);
 	}
 
 }
