@@ -44,3 +44,6 @@ Temporary Items
 *.prefs
 PacMan/.project
 *.classpath
+GameOperatingSystem/.project
+*.class
+TheDungeonLooter/.project
