@@ -21,44 +21,55 @@ public class Ghost extends Sprite {
 	}
 
 	public void move() {
-		setDirection();
-		stepUntilNextTurn--;
-		
+		setRandomDirection();
+		changeXdirectionIfXBoarderHit();
+		changeYDirectionIfYBoarderHit();
+
 		x = x + dx * GHOST_SPEED;
 		y = y + dy * GHOST_SPEED;
 	}
 
-	private void setDirection() {
-		
-		if ((stepUntilNextTurn < 1) ) {
-			stepUntilNextTurn = RandomUtil.getMinMax(0, 700 / GHOST_SPEED);
-			
-			int newDirection = RandomUtil.getMinMax(1,4);
-			dx=0;
-			dy=0;
+	private void setRandomDirection() {
+		stepUntilNextTurn--;
+
+		if ((stepUntilNextTurn < 1)) {
+			// just a reasonable random number of steps until next turn.
+			stepUntilNextTurn = RandomUtil.getMinMax(0, BOARD_SIZE_X / 3 / GHOST_SPEED);
+			System.out.println("Number of steps until next new direction = " + stepUntilNextTurn);
+
+			int newDirection = RandomUtil.getMinMax(1, 4);
+			dx = 0;
+			dy = 0;
 			switch (newDirection) {
-				case 1:
-					dx=1;
-					break;
-				case 2:
-					dx=-1;
-					break;
-				case 3:
-					dy=1;
-					break;
-				case 4:
-					dy=-1;
+			case 1:
+				dx = 1;
+				break;
+			case 2:
+				dx = -1;
+				break;
+			case 3:
+				dy = 1;
+				break;
+			case 4:
+				dy = -1;
 			}
+
+			System.out.println("New direction dx=" + dx + "  dy=" + dy);
 		}
-		
-		if ((x>BOARD_SIZE_X || x<BOARD_SIZE_X) && dx != 0) {
-			dx = dx * -1;
-		}
-		if ((y>BOARD_SIZE_Y  || y<BOARD_SIZE_Y) && dy != 0) {
+	}
+
+	private void changeYDirectionIfYBoarderHit() {
+		if ((y > (BOARD_SIZE_Y - 16) || y < 0) && dy != 0) {
+			System.out.println("Hit Y  boarder");
 			dy = dy * -1;
 		}
+	}
 
-		
+	private void changeXdirectionIfXBoarderHit() {
+		if ((x > BOARD_SIZE_X - 16 || x < 0) && dx != 0) {
+			System.out.println("Hit X  boarder");
+			dx = dx * -1;
+		}
 	}
 
 	public void draw(Graphics g) {
