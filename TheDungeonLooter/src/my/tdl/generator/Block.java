@@ -10,12 +10,13 @@ import my.tdl.main.Assets;
 public class Block extends Rectangle{
 	
 	Vector2F pos = new Vector2F();
-	private int BlockSize = 32;
+	private int BlockSize = 48;
 	private BlockType blocktype;
+	
 	private BufferedImage block;
 
 	
-	public Block(Vector2F pos) {
+	public Block(Vector2F pos, BlockType blocktype) {
 		this.pos = pos;
 		this.blocktype = blocktype;
 		init();
@@ -24,10 +25,11 @@ public class Block extends Rectangle{
 	public void init(){
 		switch(blocktype){
 		case STONE_1:
-			break;
 			block = Assets.getStone_1();
+			break;
+			
 		
-		break;
+		
 			
 		}
 		 
