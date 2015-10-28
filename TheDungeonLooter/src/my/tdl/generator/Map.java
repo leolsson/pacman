@@ -35,7 +35,7 @@ public class Map {
 				
 				switch(col & 0xFFFFFF){
 				case 0x808080:
-					tiles.blocks.add(new Block(new Vector2F(x*32, y*32)BlockType.STONE_1));
+					tiles.blocks.add(new Block(new Vector2F(x*48, y*48), BlockType.STONE_1));
 					break;
 				}
 				
