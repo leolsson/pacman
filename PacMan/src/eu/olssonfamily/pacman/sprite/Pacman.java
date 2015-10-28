@@ -6,8 +6,6 @@ import java.awt.event.KeyEvent;
 
 public class Pacman extends Sprite {
 
-	private int dx = 1;
-	private int dy = 0;
 	final int PACMAN_SPEED = 5;
 
 	public Pacman(int x, int y) {
@@ -16,14 +14,12 @@ public class Pacman extends Sprite {
 		getImageDimensions();
 	}
 
-	public void move() {
+	public void changeDirectionIfBoarderHit() {
+		super.changeDirectionIfBoarderHit();
 		x = x + dx * PACMAN_SPEED;
 		y = y + dy * PACMAN_SPEED;
 	}
 	
-	public void setDirection(int direction) {
-		
-	}
 	
 	public void drawPacman(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;

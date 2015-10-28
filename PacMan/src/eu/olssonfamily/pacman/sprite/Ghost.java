@@ -8,11 +8,9 @@ import eu.olssonfamily.pacman.util.RandomUtil;
 public class Ghost extends Sprite {
 
 	int stepUntilNextTurn = 0;
-	private int dx = 1;
-	private int dy = 0;
+	// private int dx = 1;
+	// private int dy = 0;
 	final int GHOST_SPEED = 10;
-	final int BOARD_SIZE_X = 700;
-	final int BOARD_SIZE_Y = 700;
 
 	public Ghost(int x, int y) {
 		super(x, y);
@@ -20,13 +18,12 @@ public class Ghost extends Sprite {
 		getImageDimensions();
 	}
 
-	public void move() {
-		setRandomDirection();
-		changeXdirectionIfXBoarderHit();
-		changeYDirectionIfYBoarderHit();
-
+	public void changeDirectionIfBoarderHit() {
+		super.changeDirectionIfBoarderHit();
 		x = x + dx * GHOST_SPEED;
 		y = y + dy * GHOST_SPEED;
+
+		setRandomDirection();
 	}
 
 	private void setRandomDirection() {
@@ -55,20 +52,6 @@ public class Ghost extends Sprite {
 			}
 
 			System.out.println("New direction dx=" + dx + "  dy=" + dy);
-		}
-	}
-
-	private void changeYDirectionIfYBoarderHit() {
-		if ((y > (BOARD_SIZE_Y - 16) || y < 0) && dy != 0) {
-			System.out.println("Hit Y  boarder");
-			dy = dy * -1;
-		}
-	}
-
-	private void changeXdirectionIfXBoarderHit() {
-		if ((x > BOARD_SIZE_X - 16 || x < 0) && dx != 0) {
-			System.out.println("Hit X  boarder");
-			dx = dx * -1;
 		}
 	}
 

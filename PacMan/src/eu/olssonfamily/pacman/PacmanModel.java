@@ -36,8 +36,8 @@ public class PacmanModel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		pacman.move();
-		ghost.move();
+		pacman.changeDirectionIfBoarderHit();
+		ghost.changeDirectionIfBoarderHit();
 	}
 	
 }
