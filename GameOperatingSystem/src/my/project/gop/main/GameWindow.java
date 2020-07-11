@@ -9,7 +9,7 @@ public class GameWindow extends JFrame{
 	
 	boolean fse = false;
 	int fsm = 0;
-	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[1];
+	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 	
 
 	public GameWindow(String title, int width, int height) {
