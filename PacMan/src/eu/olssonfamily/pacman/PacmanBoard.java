@@ -8,6 +8,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import eu.olssonfamily.pacman.sprite.Pacman;
+
 public class PacmanBoard extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -17,9 +19,9 @@ public class PacmanBoard extends JPanel implements ActionListener {
 
 	public PacmanBoard(KeyListener keyListener, PacmanModel model) {
 		setSize(getMaximumSize());
-		addKeyListener(keyListener);
+		addKeyListener(keyListener); 
 		setFocusable(true);
-		setBackground(Color.BLACK);
+		setBackground(Color.GRAY);
 		setDoubleBuffered(true);
 		pacmanModel = model;
 
@@ -36,6 +38,12 @@ public class PacmanBoard extends JPanel implements ActionListener {
 		super.paint(g);
 		pacmanModel.getPacman().drawPacman(g);
 		pacmanModel.getGhost().draw(g);
+		pacmanModel.getGhost1().draw(g);
+		pacmanModel.getMaze().drawMaze(g);
+		pacmanModel.getDots().drawDotsOnEmptySquares(g);
+		pacmanModel.getPowerDots().drawDotsOnDedicatedSquares(g);
+		pacmanModel.getLives().drawLives(g);
+		pacmanModel.getScore().writeScore(g);
 	}
 
 

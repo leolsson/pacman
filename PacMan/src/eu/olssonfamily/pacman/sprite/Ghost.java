@@ -10,16 +10,25 @@ public class Ghost extends Sprite {
 	int stepUntilNextTurn = 0;
 	// private int dx = 1;
 	// private int dy = 0;
-	final int GHOST_SPEED = 10;
+	final int GHOST_SPEED = 1;
+	
+	private final int startX; 
+	private final int startY;
 
 	public Ghost(int x, int y) {
 		super(x, y);
 		loadImage("images/pacman-ghost.png");
 		getImageDimensions();
+		startX = x;
+		startY = y;
+	}
+	
+	public void becomeEaten() {
+		goToStartPosition();
 	}
 
-	public void changeDirectionIfBoarderHit() {
-		super.changeDirectionIfBoarderHit();
+	public void move() {
+		super.changeDirectionIfMazeHit();
 		x = x + dx * GHOST_SPEED;
 		y = y + dy * GHOST_SPEED;
 
@@ -31,8 +40,8 @@ public class Ghost extends Sprite {
 
 		if ((stepUntilNextTurn < 1)) {
 			// just a reasonable random number of steps until next turn.
-			stepUntilNextTurn = RandomUtil.getMinMax(0, BOARD_SIZE_X / 3 / GHOST_SPEED);
-			System.out.println("Number of steps until next new direction = " + stepUntilNextTurn);
+			stepUntilNextTurn = RandomUtil.getMinMax(0, WINDOW_WIDTH / 3 / GHOST_SPEED);
+			//System.out.println("Number of steps until next new direction = " + stepUntilNextTurn);
 
 			int newDirection = RandomUtil.getMinMax(1, 4);
 			dx = 0;
@@ -51,12 +60,12 @@ public class Ghost extends Sprite {
 				dy = -1;
 			}
 
-			System.out.println("New direction dx=" + dx + "  dy=" + dy);
+			//System.out.println("New direction dx=" + dx + "  dy=" + dy);
 		}
 	}
 
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(getImage(), getX(), getY(), null);
+		g2.drawImage(getImage(0), getX(), getY(), null);
 	}
 }
