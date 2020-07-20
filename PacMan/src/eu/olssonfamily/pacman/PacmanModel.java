@@ -17,15 +17,15 @@ public class PacmanModel implements ActionListener {
 	Tick pacmanEvent = new Tick(10);
 	Lives lives = new Lives(3);
 	Score score = new Score();
+	Ghost ghost = new Ghost(0, 0);
+	Ghost[] ghosts= {new Ghost(11, 11), new Ghost(12, 11), new Ghost(14, 11), new Ghost(15, 11)};
 	Pacman pacman = new Pacman(PacmanConstants.PACMAN_START_X_POS, PacmanConstants.PACMAN_START_Y_POS, lives, score);
-	Ghost ghost = new Ghost(150, 150);
-	Ghost ghost1 = new Ghost(150, 150);
 	Maze maze = new Maze();
 	Dots dots = new Dots(maze, GAME_HEIGHT, GAME_WIDTH);
 	PowerDots powerDots = new PowerDots(maze, GAME_HEIGHT, GAME_WIDTH);
 	static boolean stateGameIsOn = false;
-	final static int GAME_HEIGHT = 20;
-	final static int GAME_WIDTH = 30;
+	final static int GAME_HEIGHT = 24;
+	final static int GAME_WIDTH = 27;
 	
 	public PacmanModel() {
 		pacmanEvent.addActionListener(this);
@@ -45,12 +45,8 @@ public class PacmanModel implements ActionListener {
 		return pacman;
 	}
 
-	Ghost getGhost() {
-		return ghost;
-	}
-	
-	Ghost getGhost1() {
-		return ghost1;
+	Ghost[] getGhosts() {
+		return ghosts;
 	}
 	
 	Maze getMaze() {
@@ -81,13 +77,12 @@ public class PacmanModel implements ActionListener {
 			pacman.teleportIfPossible();
 			pacman.setFrontCoordinates();
 			pacman.move();
-			pacman.stopIfHitGhost(new Ghost[] {ghost, ghost1});
-			ghost.teleportIfPossible();
-			ghost.setFrontCoordinates();
-			ghost.move();
-			ghost1.teleportIfPossible();
-			ghost1.setFrontCoordinates();
-			ghost1.move();
+			pacman.stopIfHitGhost(ghosts);
+			for (Ghost ghost : ghosts) {
+				ghost.teleportIfPossible();
+				ghost.setFrontCoordinates();
+				ghost.move();
+			}
 			checkGameState();
 		}
 	}
@@ -104,8 +99,9 @@ public class PacmanModel implements ActionListener {
 	
 	private void restartGame() {
 		pacman.goToStartPosition();
-		ghost.goToStartPosition();
-		ghost1.goToStartPosition();
+		for (Ghost ghost : ghosts) {
+			ghost.goToStartPosition();
+		}
 	}
 	
 }

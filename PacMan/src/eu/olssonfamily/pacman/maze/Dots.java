@@ -8,7 +8,7 @@ import eu.olssonfamily.pacman.Square;
 
 public class Dots {
 	
-	static int[][] maze;
+	int[][] maze;
 	
 	int dotWidth;
 	int dotHeight;
@@ -27,8 +27,8 @@ public class Dots {
 	}
 	
 	public void drawDotsOnEmptySquares(Graphics g) {
-		for (int i = 0; i < GAME_HEIGHT; i++) {
-			for (int j = 0; j < GAME_WIDTH; j++) {
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
 				if (maze[i][j] == 2) {
 					drawDot(g, j, i);
 				}

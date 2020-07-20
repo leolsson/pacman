@@ -29,12 +29,12 @@ public class Sprite {
 	final int WINDOW_HEIGHT = PacmanWindow.HEIGHT;
 	final int WINDOW_WIDTH = PacmanWindow.WIDTH;
 
-	public Sprite(int x, int y) {
+	public Sprite(int xGameCoordinate, int yGameCoordinate) {
 
-		this.x = x;
-		this.y = y;
-		startX = x;
-		startY = y;
+		this.x = xGameCoordinate * Square.getSquareWidth();
+		this.y = yGameCoordinate * Square.getSquareHeight();
+		startX = this.x;
+		startY = this.y;
 		vis = true;
 
 	}

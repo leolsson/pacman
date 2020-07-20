@@ -32,7 +32,7 @@ public class Lives {
 	
 	public void drawLives(Graphics g) {
 		for(int i = 0; i < lives; i++) {
-			drawPacmanImage(g, 3 + i, 19);
+			drawPacmanImage(g, 3 + i, 23);
 		}
 	}
 	
