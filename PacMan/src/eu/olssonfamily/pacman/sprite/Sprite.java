@@ -5,19 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import eu.olssonfamily.pacman.Maze;
 import eu.olssonfamily.pacman.PacmanWindow;
 import eu.olssonfamily.pacman.Square;
+import eu.olssonfamily.pacman.maze.Maze;
 
 public class Sprite {
-
-	// Save
-
-	// Save
-
-	// Save
-
-	// Save
 	protected int x;
 	protected int y;
 	protected int dx = 1;
@@ -196,7 +188,7 @@ public class Sprite {
 		return true;
 	}
 
-	private int getSquareType(int xWindowCoordinate, int yWindowCoordinate) {
+	int getSquareType(int xWindowCoordinate, int yWindowCoordinate) {
 		int xGameCoordinate = (int) Math.ceil(xWindowCoordinate/ Square.getSquareWidth());
 		int yGameCoordinate = (int) Math.ceil(yWindowCoordinate/ Square.getSquareWidth());
 		return Maze.getMaze()[yGameCoordinate][xGameCoordinate];

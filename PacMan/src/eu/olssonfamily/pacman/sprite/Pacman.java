@@ -12,13 +12,13 @@ import javax.swing.Timer;
 
 import eu.olssonfamily.pacman.util.Measure;
 import eu.olssonfamily.pacman.util.ImageModifier;
-import eu.olssonfamily.pacman.Dots;
-import eu.olssonfamily.pacman.Maze;
 import eu.olssonfamily.pacman.PacmanConstants;
 import eu.olssonfamily.pacman.PacmanModel;
-import eu.olssonfamily.pacman.PowerDots;
 import eu.olssonfamily.pacman.Square;
 import eu.olssonfamily.pacman.Tick;
+import eu.olssonfamily.pacman.maze.Dots;
+import eu.olssonfamily.pacman.maze.Maze;
+import eu.olssonfamily.pacman.maze.PowerDots;
 import eu.olssonfamily.pacman.trackers.Lives;
 import eu.olssonfamily.pacman.trackers.Score;
 
@@ -71,9 +71,9 @@ public class Pacman extends Sprite implements ActionListener {
 	}
 
 	public void drawPacman(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-		Image pacmanImage = ImageModifier.setBrightness(ImageModifier.rotate(getImage(pacmanImageIndex), getDirection()), pacmanImageBrightness);
-		g2.drawImage(pacmanImage, getX(), getY(), null);
+			Graphics2D g2 = (Graphics2D) g;
+			Image pacmanImage = ImageModifier.setBrightness(ImageModifier.rotate(getImage(pacmanImageIndex), getDirection()), pacmanImageBrightness);
+			g2.drawImage(pacmanImage, getX(), getY(), null);
 	}
 
 	public void move() {
@@ -126,14 +126,10 @@ public class Pacman extends Sprite implements ActionListener {
 	}
 
 	public void eatAndChangeStateIfPowerDotHit() {
-		for (int[] dotCoordinate : PowerDots.dotCoordinates) {
-			if (Measure.getDistance(x, y, dotCoordinate[0], dotCoordinate[1]) < Square.getSquareHeight()) {
-				Maze.updateMaze(dotCoordinate[0] / Square.getSquareWidth(), dotCoordinate[1] / Square.getSquareHeight(), 0);
-				activatePowerWithTimer();
-				break;
-			}
+		if (getSquareType(frontX[0], frontY[0]) == 3) {
+			activatePowerWithTimer();
+			Maze.updateMaze(frontX[0] / Square.getSquareWidth(), frontY[0] / Square.getSquareHeight(), 0);
 		}
-		PowerDots.setDotCoordinates();
 	}
 
 	private void activatePowerWithTimer() {
@@ -149,16 +145,10 @@ public class Pacman extends Sprite implements ActionListener {
 	}
 
 	public void eatDotIfDotHit() {
-		for (int[] dotCoordinate : Dots.dotCoordinates) {
-			if (Measure.getDistance(getPacmanCenterX(x), getPacmanCenterY(y), dotCoordinate[0],
-					dotCoordinate[1]) < Square.getSquareHeight() / 3) {
-				score.addToScore(1);
-				Maze.updateMaze(dotCoordinate[0] / Square.getSquareWidth(), dotCoordinate[1] / Square.getSquareHeight(),
-						0);
-				break;
-			}
+		if (getSquareType(getPacmanCenterX(x), getPacmanCenterY(y)) == 2) {
+			score.addToScore(1);
+			Maze.updateMaze(getPacmanCenterX(x) / Square.getSquareWidth(), getPacmanCenterY(y) / Square.getSquareHeight(), 0);
 		}
-		Dots.setDotCoordinates();
 	}
 
 	private int getPacmanCenterX(int x) {

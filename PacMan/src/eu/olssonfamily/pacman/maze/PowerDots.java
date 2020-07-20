@@ -1,7 +1,10 @@
-package eu.olssonfamily.pacman;
+package eu.olssonfamily.pacman.maze;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import eu.olssonfamily.pacman.PacmanWindow;
+import eu.olssonfamily.pacman.Square;
 
 public class PowerDots {
 
@@ -12,18 +15,14 @@ static int[][] maze;
 	
 	static int GAME_HEIGHT;
 	static int GAME_WIDTH;
-	
-	public static ArrayList<int[]> dotCoordinates = new ArrayList<int[]>();
-	
-	public PowerDots (Maze Maze, int GAME_HEIGHT, int GAME_WIDTH) {
-		maze = new Maze().getMaze();
+		
+	public PowerDots (Maze maze, int GAME_HEIGHT, int GAME_WIDTH) {
+		this.maze = maze.getMaze();
 		PowerDots.GAME_HEIGHT = GAME_HEIGHT;
 		PowerDots.GAME_WIDTH = GAME_WIDTH;
 		
 		dotWidth = PacmanWindow.WIDTH / GAME_WIDTH;
 		dotHeight = PacmanWindow.HEIGHT / GAME_HEIGHT;
-				
-		setDotCoordinates();
 	}
 	
 	public void drawDotsOnDedicatedSquares(Graphics g) {
@@ -47,18 +46,6 @@ static int[][] maze;
 
 	private static int getYWindowCoordinate(int yGameCoordinate) {
 		return yGameCoordinate * Square.getSquareHeight();
-	}
-	
-	public static void setDotCoordinates () {
-		dotCoordinates.clear();
-		for (int i = 0; i < GAME_HEIGHT; i++) {
-			for (int j = 0; j < GAME_WIDTH; j++) {
-				if (maze[i][j] == 3) {
-					int[] holder = {getXWindowCoordinate(j), getYWindowCoordinate(i)};
-					dotCoordinates.add(holder);
-				}
-			}
-		}
 	}
 
 }

@@ -8,6 +8,9 @@ import eu.olssonfamily.pacman.sprite.Pacman;
 import eu.olssonfamily.pacman.trackers.Lives;
 import eu.olssonfamily.pacman.trackers.Score;
 import eu.olssonfamily.pacman.PacmanConstants;
+import eu.olssonfamily.pacman.maze.Dots;
+import eu.olssonfamily.pacman.maze.Maze;
+import eu.olssonfamily.pacman.maze.PowerDots;
 
 public class PacmanModel implements ActionListener {
 	
