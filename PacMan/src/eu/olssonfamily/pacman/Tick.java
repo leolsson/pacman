@@ -20,7 +20,7 @@ public class Tick implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Tick called ");
+		//System.out.println("Tick called ");
 	}
 
 }
