@@ -18,8 +18,8 @@ public class PacmanModel implements ActionListener {
 	Lives lives = new Lives(3);
 	Score score = new Score();
 	Ghost ghost = new Ghost(0, 0);
-	Ghost[] ghosts= {new Ghost(11, 11), new Ghost(12, 11), new Ghost(14, 11), new Ghost(15, 11)};
 	Pacman pacman = new Pacman(PacmanConstants.PACMAN_START_X_POS, PacmanConstants.PACMAN_START_Y_POS, lives, score);
+	Ghost[] ghosts= {new Ghost(11, 10), new Ghost(12, 10), new Ghost(14, 10), new Ghost(15, 10)};
 	Maze maze = new Maze();
 	Dots dots = new Dots(maze, GAME_HEIGHT, GAME_WIDTH);
 	PowerDots powerDots = new PowerDots(maze, GAME_HEIGHT, GAME_WIDTH);

@@ -97,10 +97,10 @@ public class Sprite {
 		}
 	}
 
-	private final int RIGHT = 0;
-	private final int LEFT = 180;
-	private final int UPP = 270;
-	private final int DOWN = 90;
+	protected final int RIGHT = 0;
+	protected final int LEFT = 180;
+	protected final int UPP = 270;
+	protected final int DOWN = 90;
 
 	public int getDirection() {
 		if (dx == 1) {
