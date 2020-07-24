@@ -5,16 +5,28 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import eu.olssonfamily.pacman.PacmanWindow;
 
 public class Maze {
  
+	int[][] maze;
+	public int dotsToEat = 0;
+	
 	public Maze() {
-
+		maze = originalMaze.clone();
+		for(int i = 0; i < originalMaze.length; i++) {
+			for( int j = 0; j < originalMaze[i].length; j++) {
+				if(originalMaze[i][j] == 2 || originalMaze[i][j] == 3) {
+					dotsToEat++;
+				}
+			}
+		}
 	} 
 
-	private static int maze[][] = {
+	private final int originalMaze[][] = {
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 			{ 1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1},
 			{ 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
@@ -62,12 +74,19 @@ public class Maze {
 //			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 //			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 	
-	public static int[][] getMaze() {
+	public int[][] getMaze() {
 		return maze;
 	}
 
-	public static void updateMaze(int x, int y, int newValue) {
+	public void updateMaze(int x, int y, int newValue) {
+		if (maze[y][x] == 2 || maze[y][x] == 3) {
+			dotsToEat--;
+		}
 		maze[y][x] = newValue;
+	}
+	
+	public void resetMaze() {
+		maze = originalMaze.clone();
 	}
 	
 	public void drawMaze(Graphics g) {

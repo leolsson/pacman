@@ -128,7 +128,7 @@ public class Pacman extends Sprite implements ActionListener {
 	public void eatAndChangeStateIfPowerDotHit() {
 		if (getSquareType(frontX[0], frontY[0]) == 3) {
 			activatePowerWithTimer();
-			Maze.updateMaze(frontX[0] / Square.getSquareWidth(), frontY[0] / Square.getSquareHeight(), 0);
+			PacmanModel.getMaze().updateMaze(frontX[0] / Square.getSquareWidth(), frontY[0] / Square.getSquareHeight(), 0);
 		}
 	}
 
@@ -147,7 +147,7 @@ public class Pacman extends Sprite implements ActionListener {
 	public void eatDotIfDotHit() {
 		if (getSquareType(getPacmanCenterX(x), getPacmanCenterY(y)) == 2) {
 			score.addToScore(1);
-			Maze.updateMaze(getPacmanCenterX(x) / Square.getSquareWidth(), getPacmanCenterY(y) / Square.getSquareHeight(), 0);
+			PacmanModel.getMaze().updateMaze(getPacmanCenterX(x) / Square.getSquareWidth(), getPacmanCenterY(y) / Square.getSquareHeight(), 0);
 		}
 	}
 
