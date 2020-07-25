@@ -21,8 +21,8 @@ public class PacmanModel implements ActionListener {
 	Pacman pacman = new Pacman(PacmanConstants.PACMAN_START_X_POS, PacmanConstants.PACMAN_START_Y_POS, lives, score);
 	Ghost[] ghosts= {new Ghost(11, 10), new Ghost(12, 10), new Ghost(14, 10), new Ghost(15, 10)};
 	static Maze maze = new Maze();
-	Dots dots = new Dots(maze, GAME_HEIGHT, GAME_WIDTH);
-	PowerDots powerDots = new PowerDots(maze, GAME_HEIGHT, GAME_WIDTH);
+	Dots dots = new Dots(GAME_HEIGHT, GAME_WIDTH);
+	PowerDots powerDots = new PowerDots(GAME_HEIGHT, GAME_WIDTH);
 	static boolean stateGameIsOn = false;
 	final static int GAME_HEIGHT = 24;
 	final static int GAME_WIDTH = 27;
@@ -85,6 +85,7 @@ public class PacmanModel implements ActionListener {
 			}
 			checkGameState();
 			if (maze.dotsToEat == 0) {
+				stateGameIsOn = false;
 				resetGame();
 			}
 		}

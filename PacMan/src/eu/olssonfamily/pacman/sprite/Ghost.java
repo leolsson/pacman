@@ -8,7 +8,6 @@ import eu.olssonfamily.pacman.util.RandomUtil;
 
 public class Ghost extends Sprite {
 
-	int stepUntilNextTurn = 0;
 	final int GHOST_SPEED = 1;
 	
 	int currentDirection = 1;
