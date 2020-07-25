@@ -1,6 +1,8 @@
 package eu.olssonfamily.pacman.sprite;
 
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -45,7 +47,9 @@ public class Sprite {
 		PacmanWindow.getSquare();
 
 		for (String imageName : imageNames) {
-			ImageIcon ii = new ImageIcon(imageName);
+
+			URL url = getClass().getResource(imageName);
+			ImageIcon ii = new ImageIcon(url);
 			images.add(ii.getImage().getScaledInstance(Square.getSquareWidth(), Square.getSquareHeight(),
 					Image.SCALE_DEFAULT));
 		}
@@ -82,15 +86,15 @@ public class Sprite {
 		setX(startX);
 		setY(startY);
 	}
-	
+
 	public void teleportIfPossible() {
 		if (getSquareType(frontX[0], frontY[0]) == 4) {
 			teleport();
 		}
 	}
-	
+
 	private void teleport() {
-		if (x < WINDOW_WIDTH/2) {
+		if (x < WINDOW_WIDTH / 2) {
 			System.out.println(WINDOW_WIDTH);
 			x = WINDOW_WIDTH - Square.getSquareWidth();
 		} else {
@@ -141,7 +145,6 @@ public class Sprite {
 		frontY[0] = y + 2;
 		frontX[1] = x + width + 1;
 		frontY[1] = y + height - 2;
-		
 
 	}
 
@@ -170,7 +173,7 @@ public class Sprite {
 	}
 
 	public void changeDirectionIfMazeHit() {
-		if(!isFrontPositionValid()) {
+		if (!isFrontPositionValid()) {
 			setNoDirection();
 		}
 	}
@@ -182,7 +185,7 @@ public class Sprite {
 
 	private boolean isFrontPositionValid() {
 		for (int i = 0; i < frontX.length; i++) {
-			if(getSquareType(frontX[i], frontY[i]) == 1) {
+			if (getSquareType(frontX[i], frontY[i]) == 1) {
 				return false;
 			}
 		}
@@ -190,11 +193,10 @@ public class Sprite {
 	}
 
 	int getSquareType(int xWindowCoordinate, int yWindowCoordinate) {
-		int xGameCoordinate = (int) Math.ceil(xWindowCoordinate/ Square.getSquareWidth());
-		int yGameCoordinate = (int) Math.ceil(yWindowCoordinate/ Square.getSquareWidth());
+		int xGameCoordinate = (int) Math.ceil(xWindowCoordinate / Square.getSquareWidth());
+		int yGameCoordinate = (int) Math.ceil(yWindowCoordinate / Square.getSquareWidth());
 		return PacmanModel.getMaze().getMaze()[yGameCoordinate][xGameCoordinate];
 	}
-
 
 	public boolean isVisible() {
 		return vis;

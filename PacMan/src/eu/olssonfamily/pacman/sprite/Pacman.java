@@ -34,8 +34,8 @@ public class Pacman extends Sprite implements ActionListener {
 
 	public Pacman(int x, int y, Lives lives, Score score) {
 		super(x, y);
-		loadImage("images/pacman.png", "images/pacman-halfopen.png", "images/pacman-open.png",
-				"images/pacman-halfopen.png");
+		loadImage("/eu/olssonfamily/pacman/images/pacman.png", "/eu/olssonfamily/pacman/images/pacman-halfopen.png",
+				"/eu/olssonfamily/pacman/images/pacman-open.png", "/eu/olssonfamily/pacman/images/pacman-halfopen.png");
 		getImageDimensions();
 		pacmanImageUpdate.addActionListener(this);
 		this.lives = lives;
@@ -61,7 +61,7 @@ public class Pacman extends Sprite implements ActionListener {
 			pacmanImageIndex = 0;
 		}
 	}
-	
+
 	private void makePacmanBlink() {
 		if (pacmanImageBrightness == 1) {
 			pacmanImageBrightness = 0.7f;
@@ -71,9 +71,10 @@ public class Pacman extends Sprite implements ActionListener {
 	}
 
 	public void drawPacman(Graphics g) {
-			Graphics2D g2 = (Graphics2D) g;
-			Image pacmanImage = ImageModifier.setBrightness(ImageModifier.rotate(getImage(pacmanImageIndex), getDirection()), pacmanImageBrightness);
-			g2.drawImage(pacmanImage, getX(), getY(), null);
+		Graphics2D g2 = (Graphics2D) g;
+		Image pacmanImage = ImageModifier
+				.setBrightness(ImageModifier.rotate(getImage(pacmanImageIndex), getDirection()), pacmanImageBrightness);
+		g2.drawImage(pacmanImage, getX(), getY(), null);
 	}
 
 	public void move() {
@@ -83,7 +84,7 @@ public class Pacman extends Sprite implements ActionListener {
 	}
 
 	public void changeDirection(KeyEvent e) {
-		
+
 		PacmanModel.startGame();
 
 		int key = e.getKeyCode();
@@ -105,7 +106,6 @@ public class Pacman extends Sprite implements ActionListener {
 			dy = 1;
 		}
 	}
-	
 
 	public void stopIfHitGhost(Ghost[] ghosts) {
 		for (Ghost ghost : ghosts) {
@@ -128,7 +128,8 @@ public class Pacman extends Sprite implements ActionListener {
 	public void eatAndChangeStateIfPowerDotHit() {
 		if (getSquareType(frontX[0], frontY[0]) == 3) {
 			activatePowerWithTimer();
-			PacmanModel.getMaze().updateMaze(frontX[0] / Square.getSquareWidth(), frontY[0] / Square.getSquareHeight(), 0);
+			PacmanModel.getMaze().updateMaze(frontX[0] / Square.getSquareWidth(), frontY[0] / Square.getSquareHeight(),
+					0);
 		}
 	}
 
@@ -147,7 +148,8 @@ public class Pacman extends Sprite implements ActionListener {
 	public void eatDotIfDotHit() {
 		if (getSquareType(getPacmanCenterX(x), getPacmanCenterY(y)) == 2) {
 			score.addToScore(1);
-			PacmanModel.getMaze().updateMaze(getPacmanCenterX(x) / Square.getSquareWidth(), getPacmanCenterY(y) / Square.getSquareHeight(), 0);
+			PacmanModel.getMaze().updateMaze(getPacmanCenterX(x) / Square.getSquareWidth(),
+					getPacmanCenterY(y) / Square.getSquareHeight(), 0);
 		}
 	}
 

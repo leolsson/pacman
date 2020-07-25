@@ -2,6 +2,7 @@ package eu.olssonfamily.pacman.sprite;
 
 import java.awt.Graphics;
 
+
 import java.awt.Graphics2D;
 
 import eu.olssonfamily.pacman.util.RandomUtil;
@@ -14,7 +15,8 @@ public class Ghost extends Sprite {
 
 	public Ghost(int x, int y) {
 		super(x, y);
-		loadImage("images/pacman-ghost.png");
+		loadImage("/eu/olssonfamily/pacman/images/pacman-ghost.png");
+//		loadImage("./../images/pacman-ghost.png");
 		getImageDimensions();
 	}
 	
