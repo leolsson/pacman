@@ -15,7 +15,7 @@ import eu.olssonfamily.pacman.maze.PowerDots;
 
 public class PacmanModel implements ActionListener {
 	
-	Tick pacmanEvent = new Tick(10);
+	Tick pacmanEvent = new Tick(8);
 	Lives lives = new Lives(3);
 	Score score = new Score();
 	HighScore highScore = new HighScore();

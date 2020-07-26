@@ -9,23 +9,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class FileManager {
-	
+
 	public File file;
-	
-	public FileManager(String path) {
-		
-		file = new File(path);
-		
+
+	public FileManager(String fileName) {
+
+		file = new File(fileName);
+
 		if (!file.exists()) {
-			String currentDir = System.getProperty("user.dir");
-			try {
-				new File(currentDir + "/" + path).createNewFile();
-				write("0");
-			} 	catch (IOException e) {
-				e.printStackTrace();
-			}
+			createFile(fileName);
 		}
-		
+
+	}
+
+	private void createFile(String fileName) {
+		String currentDir = System.getProperty("user.dir");
+		try {
+			new File(currentDir + "/" + fileName).createNewFile();
+			write("0");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void write(String data) {
@@ -37,30 +41,28 @@ public class FileManager {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@SuppressWarnings("finally")
-	public String read () {
+	public String read() {
 		String data = "";
-		
+
 		try {
-			Scanner myReader = new Scanner(file, StandardCharsets.UTF_8.name());
-			
-		    while (myReader.hasNextLine()) {
-		    	data += myReader.nextLine();
-		    }
-		    myReader.close();
-	      
-	    } catch (FileNotFoundException e) {
-	    	
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	      
-	    } finally {
-	    	
-	    	return data;
-	    }
-		
+			Scanner sc = new Scanner(file, StandardCharsets.UTF_8.name());
+
+			while (sc.hasNextLine()) {
+				data += sc.nextLine();
+			}
+			sc.close();
+
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			return data;
+		}
+
 	}
-	
+
 }

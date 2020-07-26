@@ -26,7 +26,7 @@ public class PacmanBoard extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 		pacmanModel = model;
 		
-		repaintTimer = new Tick(10);
+		repaintTimer = new Tick(30);
 		repaintTimer.addActionListener(this);
 	}
 

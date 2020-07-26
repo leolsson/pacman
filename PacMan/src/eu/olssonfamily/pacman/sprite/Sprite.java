@@ -95,10 +95,9 @@ public class Sprite {
 
 	private void teleport() {
 		if (x < WINDOW_WIDTH / 2) {
-			System.out.println(WINDOW_WIDTH);
-			x = WINDOW_WIDTH - Square.getSquareWidth();
+			x = WINDOW_WIDTH - Square.getSquareWidth() * 3;
 		} else {
-			x = Square.getSquareWidth();
+			x = Square.getSquareWidth() * 3;
 		}
 	}
 
