@@ -39,7 +39,7 @@ public class Pacman extends Sprite implements ActionListener {
 		getImageDimensions();
 		pacmanImageUpdate.addActionListener(this);
 		this.lives = lives;
-		lives.createLivesImage("images/pacman-halfopen.png");
+		lives.createLivesImage("/eu/olssonfamily/pacman/images/pacman-halfopen.png");
 		this.score = score;
 
 	}

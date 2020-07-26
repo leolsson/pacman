@@ -25,7 +25,7 @@ public class PacmanBoard extends JPanel implements ActionListener {
 		setBackground(Color.GRAY);
 		setDoubleBuffered(true);
 		pacmanModel = model;
-
+		
 		repaintTimer = new Tick(10);
 		repaintTimer.addActionListener(this);
 	}
@@ -46,6 +46,7 @@ public class PacmanBoard extends JPanel implements ActionListener {
 		pacmanModel.getPowerDots().drawDotsOnDedicatedSquares(g);
 		pacmanModel.getLives().drawLives(g);
 		pacmanModel.getScore().writeScore(g);
+		pacmanModel.getHighScore().write(g);
 	}
 
 

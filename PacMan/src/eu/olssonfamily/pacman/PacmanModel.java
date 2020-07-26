@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import eu.olssonfamily.pacman.sprite.Ghost;
 import eu.olssonfamily.pacman.sprite.Pacman;
+import eu.olssonfamily.pacman.trackers.HighScore;
 import eu.olssonfamily.pacman.trackers.Lives;
 import eu.olssonfamily.pacman.trackers.Score;
 import eu.olssonfamily.pacman.PacmanConstants;
@@ -17,6 +18,7 @@ public class PacmanModel implements ActionListener {
 	Tick pacmanEvent = new Tick(10);
 	Lives lives = new Lives(3);
 	Score score = new Score();
+	HighScore highScore = new HighScore();
 	Ghost ghost = new Ghost(0, 0);
 	Pacman pacman = new Pacman(PacmanConstants.PACMAN_START_X_POS, PacmanConstants.PACMAN_START_Y_POS, lives, score);
 	Ghost[] ghosts= {new Ghost(11, 10), new Ghost(12, 10), new Ghost(14, 10), new Ghost(15, 10)};
@@ -69,6 +71,10 @@ public class PacmanModel implements ActionListener {
 		return score;
 	}
 	
+	HighScore getHighScore() {
+		return highScore;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (stateGameIsOn) {
@@ -96,7 +102,7 @@ public class PacmanModel implements ActionListener {
 			if(lives.getLives() > 0) {
 				restartGame();
 			} else {
-				
+				highScore.updateHighScore(score.getScore());
 			}
 		}
 	}

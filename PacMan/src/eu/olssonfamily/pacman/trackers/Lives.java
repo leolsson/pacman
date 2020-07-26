@@ -2,6 +2,7 @@ package eu.olssonfamily.pacman.trackers;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 
@@ -10,7 +11,6 @@ import eu.olssonfamily.pacman.Square;
 public class Lives {
 	private int lives;
 	
-	private ImageIcon pacmanImageIcon;
 	private Image pacmanImage;
 	
 	public Lives (int lives) {
@@ -18,7 +18,8 @@ public class Lives {
 	}
 	
 	public void createLivesImage (String imageSrc) {
-		pacmanImageIcon = new ImageIcon(imageSrc);
+		URL url = getClass().getResource(imageSrc);
+		ImageIcon pacmanImageIcon = new ImageIcon(url);
 		pacmanImage  = pacmanImageIcon.getImage().getScaledInstance(Square.getSquareWidth(), Square.getSquareHeight(), Image.SCALE_DEFAULT);
 	}
 	 
