@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-class EquationTest {
+public class EquationTest {
 
 	@Test
 	void case1() {

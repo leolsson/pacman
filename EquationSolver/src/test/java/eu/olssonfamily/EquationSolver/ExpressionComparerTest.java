@@ -9,11 +9,13 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class ExpressionComparerTest {
+import eu.olssonfamily.EquationSolver.ExpressionComparer;
+
+public class ExpressionComparerTest {
 
 	@Nested
 	class FindEqualitiesTest {
-		
+		 
 		@Test
 		void case1() {
 			Expression expression1 = new Expression(new ArrayList<>(Arrays.asList("1", "+", "x")));
@@ -57,7 +59,34 @@ class ExpressionComparerTest {
 			
 			assertEquals(expected, expressionComparer.findEqualities());
 		}
-				
+		
+		@Test
+		void case5() {
+			Equation equation = new Equation("(x^2-6*x+5)/(2*x-2)=1");
+			
+			Expression leftSideExpression = new Expression(equation.leftSide);
+			Expression rightSideExpression = new Expression(equation.rightSide);
+			
+			ExpressionComparer expressionComparer = new ExpressionComparer(leftSideExpression, rightSideExpression);
+			
+			ArrayList<Double> expected = new ArrayList<>(Arrays.asList(7.0));
+			
+			assertEquals(expected, expressionComparer.findEqualities());
+		}
+		
+		@Test
+		void case6() {
+			Equation equation = new Equation("(x^2-6*x+5)/(2*x-2)=1");
+			
+			Expression leftSideExpression = new Expression(equation.leftSide);
+			Expression rightSideExpression = new Expression(equation.rightSide);
+			
+			ExpressionComparer expressionComparer = new ExpressionComparer(leftSideExpression, rightSideExpression);
+			
+			ArrayList<Double> expected = new ArrayList<>(Arrays.asList(7.0));
+			
+			assertEquals(expected, expressionComparer.findEqualities());
+		}
 
 	}
 

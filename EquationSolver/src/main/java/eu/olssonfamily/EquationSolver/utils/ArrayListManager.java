@@ -1,4 +1,4 @@
-package eu.olssonfamily.EquationSolver.util;
+package eu.olssonfamily.EquationSolver.utils;
 
 import java.util.ArrayList;
 

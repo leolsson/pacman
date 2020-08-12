@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class ExpressionTest {
+public class ExpressionTest {
 
 	@Nested
 	class CalculateValueTest {
@@ -28,37 +28,45 @@ class ExpressionTest {
 			ArrayList<String> parts = new ArrayList<>(
 					Arrays.asList("(", "x", "^", "2", "-", "9", ")", "/", "(", "2", "*", "x", "-", "12", ")"));
 			Expression expression = new Expression(parts);
-			assertEquals(0, expression.calculateValue(-100));
+			assertEquals(-47.12735849056604, expression.calculateValue(-100));
 		}
 
 		@Test
-		void testAddition() {
+		void case3() {
 			ArrayList<String> parts = new ArrayList<>(Arrays.asList("1", "+", "x"));
 			Expression expression = new Expression(parts);
 			assertEquals(3, expression.calculateValue(2));
 		}
 
 		@Test
-		void testSubtraction() {
+		void case4() {
 			ArrayList<String> parts = new ArrayList<>(Arrays.asList("1", "-", "x"));
 			Expression expression = new Expression(parts);
 			assertEquals(-1, expression.calculateValue(2));
 		}
 
 		@Test
-		void testTwoLevels() {
+		void case5() {
 			ArrayList<String> parts = new ArrayList<>(
 					Arrays.asList("(", "(", "1", "-", "x", ")", "*", "4", ")", "^", "3.5"));
 			Expression expression = new Expression(parts);
 			assertEquals(128, expression.calculateValue(0));
 		}
 
-		@Test
-		void testTwoLevels2() {
+		@Test 
+		void case6() {
 			ArrayList<String> parts = new ArrayList<>(
 					Arrays.asList("(", "(", "1", "-", "x", ")", "*", "4", ")", "^", "x"));
 			Expression expression = new Expression(parts);
 			assertEquals(2.44140625E-4, expression.calculateValue(-3));
+		}
+		
+		@Test
+		void case7() {
+			ArrayList<String> parts = new ArrayList<>(
+					Arrays.asList("(", "x", "^", "2", "-", "6", "*", "x", "+", "5", ")", "/", "(", "2", "*", "x", "-", "2" , ")"));
+			Expression expression = new Expression(parts);
+			assertEquals(1, expression.calculateValue(7));
 		}
 
 		@Nested
@@ -108,6 +116,8 @@ class ExpressionTest {
 
 				assertEquals(expected, expression.calculateValuesWithinParenthasis(parts));
 			}
+			
+			
 		}
 
 		@Nested

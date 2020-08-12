@@ -9,8 +9,8 @@ import static java.lang.Math.pow;
 public class ExpressionComparer {
 
 	int decimalPlaces = 4;
-	int negativeXLimit = -300;
-	int positiveXLimit = 300;
+	int bottomLimit = -100;
+	int topLimit = 100;
 
 	Expression expression1;
 	Expression expression2;
@@ -20,30 +20,27 @@ public class ExpressionComparer {
 		this.expression2 = expression2;
 	}
 
+	double previousDifference = 0;
+	double currentDifference = 0;
+	double nextDifference = 0; 
+	
 	public ArrayList<Double> findEqualities() {
 		ArrayList<Double> answers = new ArrayList<>();
-
 		
-		double previousDifference = 0;
-		double currentDifference = 0;
-		double nextDifference = 0;
-		
-		boolean answerFound = (calculateDifference(negativeXLimit - 1) > calculateDifference(negativeXLimit));
+		boolean approachingAnswer = (calculateDifference(bottomLimit - 1) <= calculateDifference(bottomLimit));
 
-		for (double x = negativeXLimit; x <= positiveXLimit; x += 0.1) {
+		for (double x = bottomLimit; x <= topLimit; x += 0.1) {
 
-			previousDifference = pow(calculateDifference(x - 0.1), 2);
-			currentDifference = pow(calculateDifference(x), 2);
-			nextDifference = pow(calculateDifference(x + 0.1), 2);
+			setDifferences(x);
 
-			if (!answerFound) {
+			if (approachingAnswer) {
 				if ((previousDifference < currentDifference && currentDifference < nextDifference)) {
 					answers.add(DoubleRounder.round(determineDecimals(x), decimalPlaces));
-					answerFound = true;
+					approachingAnswer = false;
 				}
 			} else {
 				if (previousDifference > currentDifference) {
-					answerFound = !answerFound;
+					approachingAnswer = !approachingAnswer;
 				}
 			}
 
@@ -52,6 +49,12 @@ public class ExpressionComparer {
 		return answers;
 	}
 
+	
+	private void setDifferences(double newX) {
+		previousDifference = pow(calculateDifference(newX - 0.1), 2);
+		currentDifference = pow(calculateDifference(newX), 2);
+		nextDifference = pow(calculateDifference(newX + 0.1), 2);
+	}
 	
 	private double determineDecimals(double x) {
 		for (int i = 2; i <= decimalPlaces; i++) {

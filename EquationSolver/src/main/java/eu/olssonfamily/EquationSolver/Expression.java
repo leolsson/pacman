@@ -2,9 +2,9 @@ package eu.olssonfamily.EquationSolver;
 
 import java.util.ArrayList;
 
-import static java.lang.Math.*;
+import eu.olssonfamily.EquationSolver.utils.ArrayListManager;
 
-import eu.olssonfamily.EquationSolver.util.ArrayListManager;
+import static java.lang.Math.*;
 
 public class Expression {
 
@@ -53,9 +53,9 @@ public class Expression {
 			parts.addAll(end + 2,
 					calculateValuesWithinOneParenthasisSection(ArrayListManager.clone(parts, start, end)));
 			ArrayListManager.remove(parts, start - 1, end + 1);
-		} // else {
+		}
+		
 		calculateValueWithPrioritiesAndUpdateArray(parts);
-		// }
 
 		return parts;
 
@@ -88,12 +88,13 @@ public class Expression {
 		if (parts.contains("/")) {
 			calculateValueOfNumericExpressionsAndUpdateArray(parts, "divide");
 		}
-		if (parts.contains("+")) {
-			calculateValueOfNumericExpressionsAndUpdateArray(parts, "add");
-		}
 		if (parts.contains("-")) {
 			calculateValueOfNumericExpressionsAndUpdateArray(parts, "subtract");
 		}
+		if (parts.contains("+")) {
+			calculateValueOfNumericExpressionsAndUpdateArray(parts, "add");
+		}
+		
 
 	}
 

@@ -55,13 +55,4 @@ public class Equation {
 		return Character.isDigit(c) || c == '.';
 	}
 
-	public void print() {
-		for (int i = 0; i < leftSide.size(); i++) {
-			System.out.println(leftSide.get(i));
-		}
-		for (int i = 0; i < rightSide.size(); i++) {
-			System.out.println(rightSide.get(i));
-		}
-	}
-
 }
