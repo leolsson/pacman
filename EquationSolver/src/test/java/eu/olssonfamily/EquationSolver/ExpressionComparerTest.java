@@ -17,6 +17,7 @@ public class ExpressionComparerTest {
 	class FindEqualitiesTest {
 		 
 		@Test
+		@Disabled
 		void case1() {
 			Expression expression1 = new Expression(new ArrayList<>(Arrays.asList("1", "+", "x")));
 			Expression expression2 = new Expression(new ArrayList<>(Arrays.asList("7")));

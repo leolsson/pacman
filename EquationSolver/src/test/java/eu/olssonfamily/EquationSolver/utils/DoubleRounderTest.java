@@ -12,19 +12,19 @@ class DoubleRounderTest {
 
 		@Test
 		void case1() {
-			assertEquals(4,DoubleRounder.roundDigits(3.64, 1));
+			assertEquals(4,DoubleRounder.roundValidDigits(3.64, 1));
 		}
 		
 		@Test
 		void case2() {
-			assertEquals(37000,DoubleRounder.roundDigits(36667.64345, 2));
+			assertEquals(37000,DoubleRounder.roundValidDigits(36667.64345, 2));
 		}
 		
 		@Test
 		@Disabled
 		// Not yet ready
 		void case3() {
-			assertEquals(0.6,DoubleRounder.roundDigits(0.56, 1));
+			assertEquals(0.6,DoubleRounder.roundValidDigits(0.56, 1));
 		}
 
 	}

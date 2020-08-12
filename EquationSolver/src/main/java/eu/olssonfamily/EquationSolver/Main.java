@@ -25,6 +25,7 @@ public class Main {
 		ExpressionComparer expressionComparer = new ExpressionComparer(leftSideExpression, rightSideExpression);
 		
 		ArrayList<Double> answers = new ArrayList<>();
+		
 		answers.addAll(expressionComparer.findEqualities());
 		
 		System.out.println();

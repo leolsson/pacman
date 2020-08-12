@@ -17,9 +17,9 @@ public class DoubleRounder {
 	}
 	
 
-	public static double roundDigits(double value, int places) {
+	public static double roundValidDigits(double value, int validDigits) {
 		
-		int size = calculateSize(value);
+		int size = calculateSize(value); 
 		
 		ArrayList<Character> digits = new ArrayList<>();
 		
@@ -34,7 +34,7 @@ public class DoubleRounder {
 		digits.add(0, '.');
 		digits.add(0, '0');
 		
-		double roundedValue = roundDecimals(Double.parseDouble(createString(digits)), places);
+		double roundedValue = roundDecimals(Double.parseDouble(createString(digits)), validDigits);
 		
 		ArrayList<Character> roundedDigits = new ArrayList<>();
 		
@@ -52,7 +52,7 @@ public class DoubleRounder {
 		roundedDigits.add(size, '.');
 		
 		
-		return roundDecimals(Double.parseDouble(createString(roundedDigits)), places);
+		return roundDecimals(Double.parseDouble(createString(roundedDigits)), validDigits);
 	}	
 	
 	private static int calculateSize(double value) {
