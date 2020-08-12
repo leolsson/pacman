@@ -1,4 +1,4 @@
-package eu.olssonfamily.pacman.uitl;
+package eu.olssonfamily.pacman.util;
 
 import eu.olssonfamily.pacman.util.RandomUtil;
 

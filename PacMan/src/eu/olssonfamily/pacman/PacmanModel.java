@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import eu.olssonfamily.pacman.sprite.Ghost;
 import eu.olssonfamily.pacman.sprite.Pacman;
+import eu.olssonfamily.pacman.trackers.HighScore;
 import eu.olssonfamily.pacman.trackers.Lives;
 import eu.olssonfamily.pacman.trackers.Score;
 import eu.olssonfamily.pacman.PacmanConstants;
@@ -14,15 +15,16 @@ import eu.olssonfamily.pacman.maze.PowerDots;
 
 public class PacmanModel implements ActionListener {
 	
-	Tick pacmanEvent = new Tick(10);
+	Tick pacmanEvent = new Tick(12);
 	Lives lives = new Lives(3);
 	Score score = new Score();
+	HighScore highScore = new HighScore();
 	Ghost ghost = new Ghost(0, 0);
-	Ghost[] ghosts= {new Ghost(11, 11), new Ghost(12, 11), new Ghost(14, 11), new Ghost(15, 11)};
 	Pacman pacman = new Pacman(PacmanConstants.PACMAN_START_X_POS, PacmanConstants.PACMAN_START_Y_POS, lives, score);
-	Maze maze = new Maze();
-	Dots dots = new Dots(maze, GAME_HEIGHT, GAME_WIDTH);
-	PowerDots powerDots = new PowerDots(maze, GAME_HEIGHT, GAME_WIDTH);
+	Ghost[] ghosts= {new Ghost(11, 10), new Ghost(12, 10), new Ghost(14, 10), new Ghost(15, 10)};
+	static Maze maze = new Maze();
+	Dots dots = new Dots(GAME_HEIGHT, GAME_WIDTH);
+	PowerDots powerDots = new PowerDots(GAME_HEIGHT, GAME_WIDTH);
 	static boolean stateGameIsOn = false;
 	final static int GAME_HEIGHT = 24;
 	final static int GAME_WIDTH = 27;
@@ -49,7 +51,7 @@ public class PacmanModel implements ActionListener {
 		return ghosts;
 	}
 	
-	Maze getMaze() {
+	public static Maze getMaze() {
 		return maze;
 	}
 
@@ -69,6 +71,10 @@ public class PacmanModel implements ActionListener {
 		return score;
 	}
 	
+	HighScore getHighScore() {
+		return highScore;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (stateGameIsOn) {
@@ -84,6 +90,10 @@ public class PacmanModel implements ActionListener {
 				ghost.move();
 			}
 			checkGameState();
+			if (maze.dotsToEat == 0) {
+				stateGameIsOn = false;
+				resetGame();
+			}
 		}
 	}
 	
@@ -92,7 +102,7 @@ public class PacmanModel implements ActionListener {
 			if(lives.getLives() > 0) {
 				restartGame();
 			} else {
-				
+				highScore.updateHighScore(score.getScore());
 			}
 		}
 	}
@@ -102,6 +112,11 @@ public class PacmanModel implements ActionListener {
 		for (Ghost ghost : ghosts) {
 			ghost.goToStartPosition();
 		}
+	}
+	
+	private void resetGame() {
+		maze.resetMaze();
+		restartGame();
 	}
 	
 }

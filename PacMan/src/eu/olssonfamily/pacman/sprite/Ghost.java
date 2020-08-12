@@ -1,26 +1,23 @@
 package eu.olssonfamily.pacman.sprite;
 
 import java.awt.Graphics;
+
+
 import java.awt.Graphics2D;
 
 import eu.olssonfamily.pacman.util.RandomUtil;
 
 public class Ghost extends Sprite {
 
-	int stepUntilNextTurn = 0;
-	// private int dx = 1;
-	// private int dy = 0;
 	final int GHOST_SPEED = 1;
 	
-	private final int startX; 
-	private final int startY;
+	int currentDirection = 1;
 
 	public Ghost(int x, int y) {
 		super(x, y);
-		loadImage("images/pacman-ghost.png");
+		loadImage("/eu/olssonfamily/pacman/images/pacman-ghost.png");
+//		loadImage("./../images/pacman-ghost.png");
 		getImageDimensions();
-		startX = x;
-		startY = y;
 	}
 	
 	public void becomeEaten() {
@@ -29,38 +26,68 @@ public class Ghost extends Sprite {
 
 	public void move() {
 		super.changeDirectionIfMazeHit();
+		
 		x = x + dx * GHOST_SPEED;
 		y = y + dy * GHOST_SPEED;
-
-		setRandomDirection();
+		
+		setDirection(getTrajectory());
 	}
-
-	private void setRandomDirection() {
-		stepUntilNextTurn--;
-
-		if ((stepUntilNextTurn < 1)) {
-			// just a reasonable random number of steps until next turn.
-			stepUntilNextTurn = RandomUtil.getMinMax(0, WINDOW_WIDTH / 3 / GHOST_SPEED);
-			//System.out.println("Number of steps until next new direction = " + stepUntilNextTurn);
-
+	
+//  0 = KEEP CURRENT DIRECTION
+//	1 = RIGHT
+//	2 = DOWN
+//	3 = LEFT
+//	4 = UPP
+	
+	private void setDirection(int direction) {
+		switch (direction) {
+		case 0: 
+			break;
+		case 1:
+			removeDirection();
+			dx = 1;
+			break;
+		case 3:
+			removeDirection();
+			dx = -1;
+			break;
+		case 2:
+			removeDirection();
+			dy = 1;
+			break;
+		case 4:
+			removeDirection();
+			dy = -1;
+		} 
+	}
+	
+	private void removeDirection() {
+		dx = 0;
+		dy = 0;
+	}
+	
+	private int getTrajectory() {
+		if (hasNoDirection()) {
 			int newDirection = RandomUtil.getMinMax(1, 4);
-			dx = 0;
-			dy = 0;
-			switch (newDirection) {
-			case 1:
-				dx = 1;
-				break;
-			case 2:
-				dx = -1;
-				break;
-			case 3:
-				dy = 1;
-				break;
-			case 4:
-				dy = -1;
+			while (newDirection == calculateOppositeDirection()) {
+				newDirection = RandomUtil.getMinMax(1, 4);
 			}
-
-			//System.out.println("New direction dx=" + dx + "  dy=" + dy);
+			currentDirection = newDirection;
+			return newDirection;
+		} else {
+			return 0;
+		}
+	}
+	
+	private boolean hasNoDirection() {
+		return dx == 0 && dy == 0;
+	}
+	
+	private int calculateOppositeDirection() {
+		if (currentDirection > 2) {
+			return currentDirection - 2;
+		} else {
+			return currentDirection + 2;
 		}
 	}
 
