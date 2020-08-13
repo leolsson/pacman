@@ -53,30 +53,37 @@ public class ExpressionTest {
 			assertEquals(128, expression.calculateValue(0));
 		}
 
-		@Test 
+		@Test
 		void case6() {
 			ArrayList<String> parts = new ArrayList<>(
 					Arrays.asList("(", "(", "1", "-", "x", ")", "*", "4", ")", "^", "x"));
 			Expression expression = new Expression(parts);
 			assertEquals(2.44140625E-4, expression.calculateValue(-3));
 		}
-		
+
 		@Test
 		void case7() {
-			ArrayList<String> parts = new ArrayList<>(
-					Arrays.asList("(", "x", "^", "2", "-", "6", "*", "x", "+", "5", ")", "/", "(", "2", "*", "x", "-", "2" , ")"));
+			ArrayList<String> parts = new ArrayList<>(Arrays.asList("(", "x", "^", "2", "-", "6", "*", "x", "+", "5",
+					")", "/", "(", "2", "*", "x", "-", "2", ")"));
 			Expression expression = new Expression(parts);
 			assertEquals(1, expression.calculateValue(7));
 		}
 
 		@Test
 		void case8() {
-			ArrayList<String> parts = new ArrayList<>(
-					Arrays.asList("2", "/", "(", "x", "-", "2", ")"));
+			ArrayList<String> parts = new ArrayList<>(Arrays.asList("2", "/", "(", "x", "-", "2", ")"));
 			Expression expression = new Expression(parts);
 			assertEquals(Double.NaN, expression.calculateValue(2));
 		}
-		
+
+		@Test
+		void case9() {
+			ArrayList<String> parts = new ArrayList<>(Arrays.asList("3", "/", "(", "3", "*", "x", "-", "9", ")", "-",
+					"2", "/", "(", "2", "*", "x", "^", "2", "-", "6", "*", "x", ")"));
+			Expression expression = new Expression(parts);
+			assertEquals(1.4285714285714286, expression.calculateValue(3.5));
+		}
+
 		@Nested
 		class CalculateValueWithPrioritiesAndUpdateArrayTest {
 			void testMultiplicationAndAddition() {
@@ -124,8 +131,7 @@ public class ExpressionTest {
 
 				assertEquals(expected, expression.calculateValuesWithinParenthasis(parts));
 			}
-			
-			
+
 		}
 
 		@Nested
@@ -162,7 +168,7 @@ public class ExpressionTest {
 
 				expression.calculateValueOfNumericExpressionsAndUpdateArray(expression.parts, "add");
 
-				ArrayList<String> expected = new ArrayList<>(Arrays.asList("4", "/", "5.0"));
+				ArrayList<String> expected = new ArrayList<>(Arrays.asList("4", "/", "2", "+", "3"));
 				assertEquals(expected, parts);
 			}
 

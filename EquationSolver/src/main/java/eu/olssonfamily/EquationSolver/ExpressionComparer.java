@@ -25,6 +25,8 @@ public class ExpressionComparer {
 
 		for (double x = bottomLimit; x <= topLimit; x += 0.1) {
 
+			x = DoubleRounder.roundDecimals(x, decimalPlaces);
+			
 			if (functionsIntersect(x)) {
 				answers.add(DoubleRounder.roundDecimals(determineDecimals(x), decimalPlaces));
 			}
@@ -55,7 +57,9 @@ public class ExpressionComparer {
 			x -= 1 / pow(10, i - 1);
 			for (int j = 0; j < 20; j++) {
 				currentDifference = pow(calculateDifference(x + j * (1 / pow(10, i))), 2);
-
+				if (currentDifference == 0) return x + j * (1 / pow(10, i));
+				
+				
 				if (previousDifference < currentDifference) {
 					x += (j - 1) * (1 / pow(10, i));
 					break;
@@ -69,6 +73,7 @@ public class ExpressionComparer {
 	}
 
 	private double calculateDifference(double x) {
+		double a = expression1.calculateValue(DoubleRounder.roundDecimals(x, 6));
 		double difference = expression1.calculateValue(DoubleRounder.roundDecimals(x, 6)) - expression2.calculateValue(DoubleRounder.roundDecimals(x, 2));
 		if (isNumber(difference)) {
 			return DoubleRounder.roundDecimals(difference, 5);

@@ -31,7 +31,7 @@ public class Equation {
 				addToRightSide(holder, left);
 			}
 			if (i > side.length() - 1) break;
-			if (Character.getType(side.charAt(i)) != CharTypes.WHITESPACE && !isDigitOrPeriod(side.charAt(i))) {
+			if (Character.getType(side.charAt(i)) != Constants.CHARTYPE_WHITESPACE && !isDigitOrPeriod(side.charAt(i))) {
 				String holder = "";
 				holder += side.charAt(i);
 				addToRightSide(holder, left);

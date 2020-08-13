@@ -101,6 +101,7 @@ public class Expression {
 
 		for (int i = 0; i < parts.size(); i++) {
 			if (parts.get(i).equals(getOperatorByName(operator))) {
+
 				try {
 					int indexOfOperator = i;
 					double operand1 = Double.parseDouble(parts.get(indexOfOperator - 1));
@@ -108,6 +109,8 @@ public class Expression {
 					double newValue = calculate(operand1, operand2, operator);
 					if (Double.isNaN(newValue)) {
 						handleNotANumber(parts);
+					} else if (isOtherOperatorWithPrecedence(parts, indexOfOperator)) {
+
 					} else {
 						parts.set(indexOfOperator, String.valueOf(newValue));
 						parts.remove(indexOfOperator + 1);
@@ -124,6 +127,28 @@ public class Expression {
 	private void handleNotANumber(ArrayList<String> parts) {
 		parts.clear();
 		parts.add(String.valueOf(Double.NaN));
+	}
+
+	private boolean isOtherOperatorWithPrecedence(ArrayList<String> parts, int indexOfOperator) {
+		int previousOperatorPrecedence = getOperatorPrecedence(parts, indexOfOperator - 2);
+		int currentOperatorPrecedence = getOperatorPrecedence(parts, indexOfOperator);
+		int nextOperatorPrecedence = getOperatorPrecedence(parts, indexOfOperator + 2);
+
+		return previousOperatorPrecedence < currentOperatorPrecedence
+				|| nextOperatorPrecedence < currentOperatorPrecedence;
+
+	}
+
+	private int getOperatorPrecedence(ArrayList<String> parts, int indexOfOperator) {
+		try {
+			String operator = parts.get(indexOfOperator);
+			if (operator == "^" || operator == "*" || operator == "/" || operator == "-" || operator == "+") {
+				return Constants.listOfPrecedence.indexOf(operator);
+			}
+		} catch (Exception e) {
+			
+		}
+		return Constants.listOfPrecedence.size() + 1;
 	}
 
 	protected String getOperatorByName(String operator) {

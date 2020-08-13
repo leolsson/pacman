@@ -76,17 +76,19 @@ public class ExpressionComparerTest {
 		
 		@Test
 		void case6() {
-			Equation equation = new Equation("(x^2-6*x+5)/(2*x-2)=1");
+			Equation equation = new Equation("3/(3*x-9)-2/(2*x^2-6*x)=0");
 			
 			Expression leftSideExpression = new Expression(equation.leftSide);
 			Expression rightSideExpression = new Expression(equation.rightSide);
 			
 			ExpressionComparer expressionComparer = new ExpressionComparer(leftSideExpression, rightSideExpression);
 			
-			ArrayList<Double> expected = new ArrayList<>(Arrays.asList(7.0));
+			ArrayList<Double> expected = new ArrayList<>(Arrays.asList(1.0));
 			
 			assertEquals(expected, expressionComparer.findEqualities());
 		}
+		
+		
 
 	}
 
