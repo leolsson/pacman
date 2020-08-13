@@ -54,7 +54,7 @@ public class Expression {
 					calculateValuesWithinOneParenthasisSection(ArrayListManager.clone(parts, start, end)));
 			ArrayListManager.remove(parts, start - 1, end + 1);
 		}
-		
+
 		calculateValueWithPrioritiesAndUpdateArray(parts);
 
 		return parts;
@@ -94,32 +94,37 @@ public class Expression {
 		if (parts.contains("+")) {
 			calculateValueOfNumericExpressionsAndUpdateArray(parts, "add");
 		}
-		
 
 	}
 
 	protected void calculateValueOfNumericExpressionsAndUpdateArray(ArrayList<String> parts, String operator) {
-		
-		for(int i = 0; i < parts.size(); i++) {
+
+		for (int i = 0; i < parts.size(); i++) {
 			if (parts.get(i).equals(getOperatorByName(operator))) {
 				try {
 					int indexOfOperator = i;
 					double operand1 = Double.parseDouble(parts.get(indexOfOperator - 1));
 					double operand2 = Double.parseDouble(parts.get(indexOfOperator + 1));
-					String newValue = String.valueOf(calculate(operand1, operand2, operator));
-					parts.set(indexOfOperator, newValue);
-					parts.remove(indexOfOperator + 1);
-					parts.remove(indexOfOperator - 1);
+					double newValue = calculate(operand1, operand2, operator);
+					if (Double.isNaN(newValue)) {
+						handleNotANumber(parts);
+					} else {
+						parts.set(indexOfOperator, String.valueOf(newValue));
+						parts.remove(indexOfOperator + 1);
+						parts.remove(indexOfOperator - 1);
+					}
 				} catch (Exception e) {
-					
-				}
- 			}
-		}
 
+				}
+			}
+		}
 
 	}
 
-	
+	private void handleNotANumber(ArrayList<String> parts) {
+		parts.clear();
+		parts.add(String.valueOf(Double.NaN));
+	}
 
 	protected String getOperatorByName(String operator) {
 		switch (operator) {
@@ -149,7 +154,11 @@ public class Expression {
 			return operand1 * operand2;
 
 		case "divide":
-			return operand1 / operand2;
+			if (operand2 != 0) {
+				return operand1 / operand2;
+			} else {
+				return Double.NaN;
+			}
 
 		case "add":
 			return operand1 + operand2;

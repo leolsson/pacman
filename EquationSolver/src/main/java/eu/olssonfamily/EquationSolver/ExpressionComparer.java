@@ -9,8 +9,8 @@ import static java.lang.Math.pow;
 public class ExpressionComparer {
 
 	int decimalPlaces = 4;
-	int bottomLimit = -100;
-	int topLimit = 100;
+	double bottomLimit = -100;
+	double topLimit = 100;
 
 	Expression expression1;
 	Expression expression2;
@@ -20,30 +20,13 @@ public class ExpressionComparer {
 		this.expression2 = expression2;
 	}
 
-	double previousDifference = 0;
-	double currentDifference = 0;
-	double nextDifference = 0;
-
 	public ArrayList<Double> findEqualities() {
 		ArrayList<Double> answers = new ArrayList<>();
 
-		boolean approachingAnswer = (calculateDifference(bottomLimit - 1) <= calculateDifference(bottomLimit));
-
 		for (double x = bottomLimit; x <= topLimit; x += 0.1) {
 
-			setDifferences(x);
-
-			if (approachingAnswer) {
-				if ((previousDifference < currentDifference && currentDifference < nextDifference)) {
-					if (functionsHaveCrossed(x)) {
-						answers.add(DoubleRounder.roundDecimals(determineDecimals(x), decimalPlaces));
-					}
-					approachingAnswer = false;
-				}
-			} else {
-				if (previousDifference > currentDifference) {
-					approachingAnswer = !approachingAnswer;
-				}
+			if (functionsIntersect(x)) {
+				answers.add(DoubleRounder.roundDecimals(determineDecimals(x), decimalPlaces));
 			}
 
 		}
@@ -51,22 +34,18 @@ public class ExpressionComparer {
 		return answers;
 	}
 
-	private void setDifferences(double newX) {
-		previousDifference = pow(calculateDifference(newX - 0.1), 2);
-		currentDifference = pow(calculateDifference(newX), 2);
-		nextDifference = pow(calculateDifference(newX + 0.1), 2);
-	}
-
-	private boolean functionsHaveCrossed(double x) {
-		if (DoubleRounder.roundDecimals(expression1.calculateValue(x - 0.1), 6) == DoubleRounder.roundDecimals(expression2.calculateValue(x - 0.1), 6)) {
+	private boolean functionsIntersect(double x) {
+		if (calculateDifference(x) == 0) {
 			return true;
 		} else {
-			if (expression1.calculateValue(x - 0.2) > expression2.calculateValue(x - 0.2)) {
-				return expression2.calculateValue(x) > expression1.calculateValue(x - 0.2);
-			} else {
-				return expression1.calculateValue(x) > expression2.calculateValue(x - 0.2);
+			if (calculateDifference(x - 0.1) > 0) {
+				return calculateDifference(x) < 0;
+			} else if (calculateDifference(x - 0.1) < 0) {
+				double a = calculateDifference(x);
+				return calculateDifference(x) > 0;
 			}
 		}
+		return false;
 	}
 
 	private double determineDecimals(double x) {
@@ -76,8 +55,6 @@ public class ExpressionComparer {
 			x -= 1 / pow(10, i - 1);
 			for (int j = 0; j < 20; j++) {
 				currentDifference = pow(calculateDifference(x + j * (1 / pow(10, i))), 2);
-				if (currentDifference == 0)
-					return x;
 
 				if (previousDifference < currentDifference) {
 					x += (j - 1) * (1 / pow(10, i));
@@ -92,7 +69,16 @@ public class ExpressionComparer {
 	}
 
 	private double calculateDifference(double x) {
-		return expression1.calculateValue(x) - expression2.calculateValue(x);
+		double difference = expression1.calculateValue(DoubleRounder.roundDecimals(x, 6)) - expression2.calculateValue(DoubleRounder.roundDecimals(x, 2));
+		if (isNumber(difference)) {
+			return DoubleRounder.roundDecimals(difference, 5);
+		} else {
+			return Double.NaN;
+		}
+	}
+	
+	private boolean isNumber(double num) {
+		return !Double.isNaN(num);
 	}
 
 }

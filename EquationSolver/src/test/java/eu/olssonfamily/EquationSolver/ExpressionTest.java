@@ -69,6 +69,14 @@ public class ExpressionTest {
 			assertEquals(1, expression.calculateValue(7));
 		}
 
+		@Test
+		void case8() {
+			ArrayList<String> parts = new ArrayList<>(
+					Arrays.asList("2", "/", "(", "x", "-", "2", ")"));
+			Expression expression = new Expression(parts);
+			assertEquals(Double.NaN, expression.calculateValue(2));
+		}
+		
 		@Nested
 		class CalculateValueWithPrioritiesAndUpdateArrayTest {
 			void testMultiplicationAndAddition() {
