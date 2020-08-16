@@ -185,38 +185,6 @@ public class ExpressionTest {
 
 		}
 
-		@Nested
-		class getOperatorsByNameTest {
-
-			Expression expression;
-
-			@BeforeEach
-			void init() {
-				ArrayList<String> parts = new ArrayList<>(Arrays.asList("1", "+", "2"));
-				expression = new Expression(parts);
-			}
-
-			@Test
-			void testMultiplication() {
-				assertEquals("*", expression.getOperatorByName("multiply"));
-			}
-
-			@Test
-			void testDivision() {
-				assertEquals("/", expression.getOperatorByName("divide"));
-			}
-
-			@Test
-			void testAddition() {
-				assertEquals("+", expression.getOperatorByName("add"));
-			}
-
-			@Test
-			void testSubtraction() {
-				assertEquals("-", expression.getOperatorByName("subtract"));
-			}
-
-		}
 
 		@Nested
 		class CalculateTest {

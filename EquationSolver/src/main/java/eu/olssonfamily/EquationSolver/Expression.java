@@ -80,19 +80,19 @@ public class Expression {
 
 	private void calculateValueWithPrioritiesAndUpdateArray(ArrayList<String> parts) {
 		if (parts.contains("^")) {
-			calculateValueOfNumericExpressionsAndUpdateArray(parts, "power");
+			calculateValueOfNumericExpressionsAndUpdateArray(parts, "^");
 		}
 		if (parts.contains("*")) {
-			calculateValueOfNumericExpressionsAndUpdateArray(parts, "multiply");
+			calculateValueOfNumericExpressionsAndUpdateArray(parts, "*");
 		}
 		if (parts.contains("/")) {
-			calculateValueOfNumericExpressionsAndUpdateArray(parts, "divide");
+			calculateValueOfNumericExpressionsAndUpdateArray(parts, "/");
 		}
 		if (parts.contains("-")) {
-			calculateValueOfNumericExpressionsAndUpdateArray(parts, "subtract");
+			calculateValueOfNumericExpressionsAndUpdateArray(parts, "-");
 		}
 		if (parts.contains("+")) {
-			calculateValueOfNumericExpressionsAndUpdateArray(parts, "add");
+			calculateValueOfNumericExpressionsAndUpdateArray(parts, "+");
 		}
 
 	}
@@ -100,7 +100,7 @@ public class Expression {
 	protected void calculateValueOfNumericExpressionsAndUpdateArray(ArrayList<String> parts, String operator) {
 
 		for (int i = 0; i < parts.size(); i++) {
-			if (parts.get(i).equals(getOperatorByName(operator))) {
+			if (parts.get(i).equals(operator)) {
 
 				try {
 					int indexOfOperator = i;
@@ -151,44 +151,25 @@ public class Expression {
 		return Constants.listOfPrecedence.size() + 1;
 	}
 
-	protected String getOperatorByName(String operator) {
-		switch (operator) {
-		case "power":
-			return "^";
-
-		case "multiply":
-			return "*";
-
-		case "divide":
-			return "/";
-
-		case "add":
-			return "+";
-
-		case "subtract":
-			return "-";
-		}
-		return "";
-	}
 
 	protected double calculate(double operand1, double operand2, String operator) {
 		switch (operator) {
-		case "power":
+		case "^":
 			return pow(operand1, operand2);
-		case "multiply":
+		case "*":
 			return operand1 * operand2;
 
-		case "divide":
+		case "/":
 			if (operand2 != 0) {
 				return operand1 / operand2;
 			} else {
 				return Double.NaN;
 			}
 
-		case "add":
+		case "+":
 			return operand1 + operand2;
 
-		case "subtract":
+		case "-":
 			return operand1 - operand2;
 		}
 		return 0;

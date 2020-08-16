@@ -26,7 +26,7 @@ public class ExpressionComparer {
 		for (double x = bottomLimit; x <= topLimit; x += 0.1) {
 
 			x = DoubleRounder.roundDecimals(x, decimalPlaces);
-			
+
 			if (functionsIntersect(x)) {
 				answers.add(DoubleRounder.roundDecimals(determineDecimals(x), decimalPlaces));
 			}
@@ -37,14 +37,16 @@ public class ExpressionComparer {
 	}
 
 	private boolean functionsIntersect(double x) {
-		if (calculateDifference(x) == 0) {
-			return true;
-		} else {
-			if (calculateDifference(x - 0.1) > 0) {
-				return calculateDifference(x) < 0;
-			} else if (calculateDifference(x - 0.1) < 0) {
-				double a = calculateDifference(x);
-				return calculateDifference(x) > 0;
+		if (isNumber(calculateDifference(x))) {
+			if (calculateDifference(x) == 0) {
+				return true;
+			} else {
+				if (calculateDifference(x - 0.1) > 0) {
+					return calculateDifference(x) < 0;
+				} else if (calculateDifference(x - 0.1) < 0) {
+					double a = calculateDifference(x);
+					return calculateDifference(x) > 0;
+				}
 			}
 		}
 		return false;
@@ -57,9 +59,9 @@ public class ExpressionComparer {
 			x -= 1 / pow(10, i - 1);
 			for (int j = 0; j < 20; j++) {
 				currentDifference = pow(calculateDifference(x + j * (1 / pow(10, i))), 2);
-				if (currentDifference == 0) return x + j * (1 / pow(10, i));
-				
-				
+				if (currentDifference == 0)
+					return x + j * (1 / pow(10, i));
+
 				if (previousDifference < currentDifference) {
 					x += (j - 1) * (1 / pow(10, i));
 					break;
@@ -74,14 +76,15 @@ public class ExpressionComparer {
 
 	private double calculateDifference(double x) {
 		double a = expression1.calculateValue(DoubleRounder.roundDecimals(x, 6));
-		double difference = expression1.calculateValue(DoubleRounder.roundDecimals(x, 6)) - expression2.calculateValue(DoubleRounder.roundDecimals(x, 2));
+		double difference = expression1.calculateValue(DoubleRounder.roundDecimals(x, 6))
+				- expression2.calculateValue(DoubleRounder.roundDecimals(x, 2));
 		if (isNumber(difference)) {
 			return DoubleRounder.roundDecimals(difference, 5);
 		} else {
 			return Double.NaN;
 		}
 	}
-	
+
 	private boolean isNumber(double num) {
 		return !Double.isNaN(num);
 	}
